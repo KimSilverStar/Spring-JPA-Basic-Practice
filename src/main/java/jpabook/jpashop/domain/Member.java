@@ -1,15 +1,17 @@
 package jpabook.jpashop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
 	@Id @GeneratedValue			// strategy 속성 디폴트: AUTO
 	@Column(name = "MEMBER_ID")
 	private Long id;
+
+	@OneToMany(mappedBy = "member")		// 연관관계의 주인: Order.member
+	private List<Order> orders = new ArrayList<>();
 
 	private String name;
 	private String city;
@@ -22,6 +24,14 @@ public class Member {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public String getName() {
