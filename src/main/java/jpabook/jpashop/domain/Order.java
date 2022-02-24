@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")			// DB 키워드 "ORDER" 를 피하기 위함
-public class Order {
+public class Order extends BaseEntity {
 	@Id @GeneratedValue
 	@Column(name = "ORDER_ID")
 	public Long id;
