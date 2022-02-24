@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.*;
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "ORDERS")			// DB 키워드 "ORDER" 를 피하기 위함
 public class Order extends BaseEntity {
@@ -14,15 +17,16 @@ public class Order extends BaseEntity {
 
 //	@Column(name = "MEMBER_ID")
 //	private Long memberId;
-	@ManyToOne
+	@ManyToOne(fetch = LAZY)
 	@JoinColumn(name = "MEMBER_ID")		// 외래 키
 	private Member member;
 
-	@OneToOne
+	@OneToOne(fetch = LAZY, cascade = ALL)		// Order 와 Delivery 의 라이프 사이클 동기화 (Cascade)
 	@JoinColumn(name = "DELIVERY_ID")	// 외래 키
 	private Delivery delivery;
 
-	@OneToMany(mappedBy = "order")		// 양방향 연관관계의 주인: OrderItem.order
+	// 양방향 연관관계의 주인: OrderItem.order
+	@OneToMany(mappedBy = "order", cascade = ALL)	// Order 와 Delivery 의 라이프 사이클 동기화 (Cascade)
 	private List<OrderItem> orderItems = new ArrayList<>();
 
 	private LocalDateTime orderDate;

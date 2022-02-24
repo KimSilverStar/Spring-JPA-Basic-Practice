@@ -2,13 +2,15 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 public class Delivery extends BaseEntity {
 	@Id @GeneratedValue
 	@Column(name = "DELIVERY_ID")
 	private Long id;
 
-	@OneToOne(mappedBy = "delivery")	// 양방향 연관관계의 주인: Order.delivery
+	@OneToOne(mappedBy = "delivery", fetch = LAZY)	// 양방향 연관관계의 주인: Order.delivery
 	private Order order;
 
 	private String city;
