@@ -15,10 +15,14 @@ public class Order {
 //	@Column(name = "MEMBER_ID")
 //	private Long memberId;
 	@ManyToOne
-	@JoinColumn(name = "MEMBER_ID")
+	@JoinColumn(name = "MEMBER_ID")		// 외래 키
 	private Member member;
 
-	@OneToMany(mappedBy = "order")		// 연관관계의 주인: OrderItem.order
+	@OneToOne
+	@JoinColumn(name = "DELIVERY_ID")	// 외래 키
+	private Delivery delivery;
+
+	@OneToMany(mappedBy = "order")		// 양방향 연관관계의 주인: OrderItem.order
 	private List<OrderItem> orderItems = new ArrayList<>();
 
 	private LocalDateTime orderDate;
@@ -70,5 +74,13 @@ public class Order {
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+
+	public Delivery getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(Delivery delivery) {
+		this.delivery = delivery;
 	}
 }
