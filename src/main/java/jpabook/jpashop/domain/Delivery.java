@@ -13,9 +13,9 @@ public class Delivery extends BaseEntity {
 	@OneToOne(mappedBy = "delivery", fetch = LAZY)	// 양방향 연관관계의 주인: Order.delivery
 	private Order order;
 
-	private String city;
-	private String street;
-	private String zipcode;
+	@Embedded					// 값 타입 (임베디드 타입)
+	private Address address;
+
 	private DeliveryStatus status;
 
 	public Long getId() {
@@ -34,28 +34,12 @@ public class Delivery extends BaseEntity {
 		this.order = order;
 	}
 
-	public String getCity() {
-		return city;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public String getZipcode() {
-		return zipcode;
-	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public DeliveryStatus getStatus() {
